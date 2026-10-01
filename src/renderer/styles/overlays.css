@@ -1,0 +1,254 @@
+/* Floating recording controller (transparent, frameless, always on top) */
+.controller-root {
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 6px;
+}
+.pill {
+  -webkit-app-region: drag;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 56px;
+  width: 100%;
+  padding: 0 8px 0 10px;
+  border-radius: 999px;
+  background: rgba(20, 21, 26, 0.94);
+  color: #f2f3f6;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  font-family: var(--font);
+}
+.pill button {
+  -webkit-app-region: no-drag;
+}
+.pill .grip {
+  color: rgba(255, 255, 255, 0.35);
+  display: grid;
+  place-items: center;
+  width: 16px;
+  flex: none;
+}
+.pill .status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 8px 0 4px;
+  min-width: 96px;
+}
+.pill .live-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ff4d55;
+  box-shadow: 0 0 0 4px rgba(255, 77, 85, 0.22);
+  animation: pulse 1.4s ease-in-out infinite;
+  flex: none;
+}
+.pill .live-dot.paused {
+  background: #f3b33d;
+  box-shadow: 0 0 0 4px rgba(243, 179, 61, 0.2);
+  animation: none;
+}
+.pill .time {
+  font-size: 16px;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.01em;
+}
+.pill .label {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.65);
+  white-space: nowrap;
+}
+.pill .sep {
+  width: 1px;
+  height: 26px;
+  background: rgba(255, 255, 255, 0.12);
+  margin: 0 4px;
+  flex: none;
+}
+.pill-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: none;
+  display: grid;
+  place-items: center;
+  background: transparent;
+  color: #e9eaee;
+  transition: background 0.12s var(--ease), color 0.12s var(--ease);
+  flex: none;
+}
+.pill-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+.pill-btn.small {
+  width: 30px;
+}
+.pill-btn.off {
+  color: #ff7a80;
+}
+.pill-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+.pill-btn.stop {
+  background: #ff4d55;
+  color: #fff;
+}
+.pill-btn.stop:hover {
+  background: #ff636a;
+}
+.pill-btn.confirm {
+  width: auto;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: rgba(255, 77, 85, 0.18);
+  color: #ff8a8f;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Floating camera bubble (its own transparent window; recorded as-is in screen recordings) */
+.bubble-shell {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: #15161b;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+}
+.bubble-shell:active {
+  cursor: grabbing;
+}
+.bubble-shell::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.92);
+  pointer-events: none;
+}
+.bubble-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.bubble-message {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 14%;
+  color: #e8e9ee;
+  font-size: 12px;
+  text-align: center;
+}
+.bubble-badge {
+  position: absolute;
+  top: 9%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 10px;
+  white-space: nowrap;
+}
+.bubble-controls {
+  position: absolute;
+  left: 50%;
+  bottom: 11%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 3px;
+  padding: 4px;
+  border-radius: 999px;
+  background: rgba(14, 15, 19, 0.74);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  transition: opacity 0.15s var(--ease);
+}
+.bubble-shell:hover .bubble-controls {
+  opacity: 1;
+}
+.bubble-controls[hidden] {
+  display: none;
+}
+.bubble-shell.compact .bubble-controls {
+  bottom: auto;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.bubble-controls button {
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: transparent;
+  color: #fff;
+}
+.bubble-shell.compact .bubble-controls button {
+  width: 22px;
+  height: 22px;
+}
+.bubble-controls button:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+.bubble-controls button:disabled {
+  opacity: 0.35;
+}
+
+/* Countdown overlay */
+.countdown-root {
+  height: 100vh;
+  display: grid;
+  place-items: center;
+}
+.countdown-circle {
+  width: 190px;
+  height: 190px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(16, 17, 22, 0.82);
+  color: #fff;
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+.countdown-number {
+  font-family: var(--font-display);
+  font-size: 92px;
+  font-weight: 700;
+  line-height: 1;
+  animation: count-pop 1s var(--ease);
+}
+.countdown-caption {
+  position: absolute;
+  bottom: 30px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+}
+@keyframes count-pop {
+  0% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+  25% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.4;
+  }
+}

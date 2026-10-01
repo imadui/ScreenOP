@@ -1,0 +1,14 @@
+node_modules/
+out/
+release/
+.cache/
+.agent-tmp/
+test-results/
+playwright-report/
+coverage/
+*.log
+.DS_Store
+*.tsbuildinfo
+
+# Generated from node_modules by scripts/copy-mediapipe.mjs (the .tflite model is committed)
+resources/mediapipe/vision_wasm_internal.*

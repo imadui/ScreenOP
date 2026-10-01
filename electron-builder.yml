@@ -1,0 +1,53 @@
+appId: com.oneloom.desktop
+productName: OneLoom
+copyright: Copyright © 2026 ScreenOP contributors
+directories:
+  output: release
+  buildResources: build
+files:
+  - out/**
+  - package.json
+  - '!**/*.map'
+extraResources:
+  - from: resources
+    to: resources
+    filter:
+      - '**/*'
+extraFiles:
+  - from: LICENSE
+    to: LICENSE.txt
+  - from: THIRD_PARTY_NOTICES.md
+    to: THIRD_PARTY_NOTICES.md
+asar: true
+electronLanguages:
+  - en-US
+  - en-GB
+  - fr
+  - de
+  - es
+  - it
+  - nl
+  - pt-BR
+win:
+  # Default target is an unpacked app (release/win-unpacked) zipped with Windows' own tar.exe
+  # (scripts/zip-release.mjs). The NSIS installer needs electron-builder's bundled 7-Zip, which
+  # managed workstations may block — build it with `npm run dist:installer` on a build machine.
+  target:
+    - target: dir
+      arch:
+        - x64
+  icon: build/icon.ico
+  artifactName: ${productName}-Setup-${version}.${ext}
+  # No code-signing certificate is configured for this build.
+  signAndEditExecutable: true
+nsis:
+  oneClick: false
+  perMachine: false
+  allowElevation: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: OneLoom
+  deleteAppDataOnUninstall: false
+  installerIcon: build/icon.ico
+  uninstallerIcon: build/icon.ico

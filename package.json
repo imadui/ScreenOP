@@ -1,0 +1,39 @@
+{
+  "name": "oneloom",
+  "productName": "OneLoom",
+  "version": "1.1.0",
+  "description": "Fast local screen recorder for Windows that saves straight into your OneDrive.",
+  "author": "OneLoom",
+  "license": "MIT",
+  "private": true,
+  "main": "./out/main/index.js",
+  "scripts": {
+    "dev": "npm run assets && node scripts/run-local.mjs electron-vite dev",
+    "start": "npm run assets && node scripts/run-local.mjs electron-vite preview",
+    "typecheck": "tsc --noEmit -p tsconfig.node.json && tsc --noEmit -p tsconfig.web.json && tsc --noEmit -p tsconfig.e2e.json",
+    "build": "npm run typecheck && npm run assets && electron-vite build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "npm run assets && electron-vite build && node scripts/run-local.mjs playwright test",
+    "icons": "node scripts/generate-icons.mjs",
+    "dist": "npm run build && node scripts/run-local.mjs electron-builder --win dir --x64 --publish never && node scripts/zip-release.mjs",
+    "dist:installer": "npm run build && node scripts/run-local.mjs electron-builder --win nsis --x64 --publish never",
+    "assets": "node scripts/copy-mediapipe.mjs"
+  },
+  "devDependencies": {
+    "@mediapipe/tasks-vision": "^1.0.1",
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^24.19.0",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^5.2.0",
+    "electron": "^44.5.1",
+    "electron-builder": "^26.15.3",
+    "electron-vite": "^5.0.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.6",
+    "vitest": "^5.0.3"
+  }
+}

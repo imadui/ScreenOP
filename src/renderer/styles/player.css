@@ -1,0 +1,158 @@
+.player-page {
+  max-width: 1180px;
+}
+.player-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.player-title {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.player-title h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+}
+.player-video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: calc(100vh - 400px);
+  min-height: 220px;
+  border-radius: var(--radius-lg);
+  background: #000;
+  display: block;
+  outline: none;
+}
+.player-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.player-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.path-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  color: var(--text-muted);
+  min-width: 0;
+  user-select: text;
+}
+.path-box span {
+  min-width: 0;
+}
+.not-found {
+  padding: 60px 20px;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+/* Trim editor */
+.trim-video {
+  cursor: pointer;
+}
+.trim-timeline {
+  position: relative;
+  height: 76px;
+  border-radius: var(--radius);
+  background: #0b0c10;
+  overflow: visible;
+  cursor: pointer;
+  touch-action: none;
+  user-select: none;
+}
+.trim-strip {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.trim-strip img,
+.trim-strip-empty {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+.trim-strip-empty {
+  background: linear-gradient(90deg, #15171d, #1d2028);
+  border-right: 1px solid #0b0c10;
+}
+.trim-dim {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: rgba(8, 9, 12, 0.72);
+  pointer-events: none;
+}
+.trim-selection {
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  border: 3px solid #f6c445;
+  border-radius: 10px;
+  pointer-events: none;
+}
+.trim-handle {
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  width: 16px;
+  background: #f6c445;
+  cursor: ew-resize;
+  pointer-events: auto;
+  display: grid;
+  place-items: center;
+}
+.trim-handle::after {
+  content: '';
+  width: 3px;
+  height: 22px;
+  border-radius: 2px;
+  background: rgba(40, 30, 0, 0.55);
+}
+.trim-handle.start {
+  left: -14px;
+  border-radius: 9px 0 0 9px;
+}
+.trim-handle.end {
+  right: -14px;
+  border-radius: 0 9px 9px 0;
+}
+.trim-playhead {
+  position: absolute;
+  top: -8px;
+  bottom: -8px;
+  width: 2px;
+  margin-left: -1px;
+  background: #fff;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+}
+.trim-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.trim-times {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-left: 6px;
+}
